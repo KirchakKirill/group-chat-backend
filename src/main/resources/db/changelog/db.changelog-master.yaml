@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01_create_user_table
+      author: Kirchak
+      changes:
+        - sqlFile:
+            path: changeSets/01_create_user_table.sql
+            relativeToChangelogFile: true
