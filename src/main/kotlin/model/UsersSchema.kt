@@ -13,8 +13,7 @@ data class User(
 
 
 object Users : Table() {
-    val id = integer("id").autoIncrement()
-    val googleSub  = text("google_sub").uniqueIndex()
+    val googleSub  = text("google_sub")
     val email = text("email")
-    override val primaryKey = PrimaryKey(id)
+    override val primaryKey = PrimaryKey(googleSub)
 }

@@ -11,6 +11,9 @@ ktor:
     logging:
         level: TRACE
 
+    environment: development
+
+
 
 db:
     url: "jdbc:postgresql://localhost:5432/db_group_chat"

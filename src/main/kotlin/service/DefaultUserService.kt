@@ -12,17 +12,17 @@ import org.jetbrains.exposed.sql.update
 
 class DefaultUserService: UserService
 {
-    override suspend fun create(user: User): Int = dbQuery {
+    override suspend fun create(user: User): String = dbQuery {
         Users.insert {
             it[googleSub] = user.sub
             it[email] = user.email
-        }[Users.id]
+        }[Users.googleSub]
     }
 
-    override suspend fun findById(id: Int): User? {
+    override suspend fun findById(sub:String): User? {
         return dbQuery {
             Users.selectAll()
-                .where { Users.id eq id }
+                .where { Users.googleSub eq sub }
                 .map {
                     User(
                         it[Users.googleSub],
@@ -33,24 +33,23 @@ class DefaultUserService: UserService
         }
     }
 
-    override suspend fun findByGoogleSub(sub: String): Boolean = dbQuery {
+    override suspend fun existsByGoogleSub(sub: String): Boolean = dbQuery {
          Users.selectAll()
             .where { Users.googleSub eq sub }
              .count()==1L
     }
 
-    override suspend fun update(id: Int, user: User) {
+    override suspend fun update(sub: String, user: User) {
         dbQuery {
-            Users.update({ Users.id eq id }) {
-                it[googleSub] = user.sub
+            Users.update({ Users.googleSub eq sub }) {
                 it[email] = user.email
             }
         }
     }
 
-    override suspend fun delete(id: Int) {
+    override suspend fun delete(sub: String) {
         dbQuery {
-            Users.deleteWhere { Users.id.eq(id) }
+            Users.deleteWhere { Users.googleSub.eq(sub) }
         }
     }
 

@@ -58,7 +58,7 @@ data class GoogleSuccessResponse(
     val givenName:String,
 
     @SerialName("family_name")
-    val familyName:String,
+    val familyName:String?=null,
 
     @SerialName("picture")
     val picture:String,

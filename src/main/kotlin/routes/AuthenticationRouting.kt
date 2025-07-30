@@ -16,9 +16,11 @@ import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
 import org.slf4j.LoggerFactory
 import java.util.Date
+import org.koin.ktor.ext.inject
 
 
-fun Application.configureAuthenticationRouting(httpClient: HttpClient,dotenv: Dotenv,userService: UserService) {
+fun Application.configureAuthenticationRouting(httpClient: HttpClient,dotenv: Dotenv) {
+    val userService by inject<UserService>()
     val logger = LoggerFactory.getLogger("Application")
    routing {
        authenticate("google-oauth")
@@ -41,7 +43,7 @@ fun Application.configureAuthenticationRouting(httpClient: HttpClient,dotenv: Do
                val userInfo = fetchGoogleUserInfo(httpClient,googleToken)
 
                if (userInfo!=null) {
-                    if (!userService.findByGoogleSub(userInfo.sub)) userService.create(userInfo)
+                    if (!userService.existsByGoogleSub(userInfo.sub)) userService.create(userInfo)
 
 
                    val expiresAt = Date(System.currentTimeMillis() + currentPrincipal.expiresIn * 1000L)

@@ -26,7 +26,28 @@ fun Application.configureDatabases() {
     setUpLiquibase(dataSource)
     Database.connect(dataSource)
 
+    val isDevelopment = environment.config.property("ktor.environment").getString() == "development"
+
+//    transaction {
+//        if (isDevelopment) {
+//
+//            SchemaUtils.drop(
+//                Users,
+//                Message,
+//                Chat,
+//                UsersChatsRoles
+//            )
+//        }
+//
+//        SchemaUtils.create(
+//            Users,
+//            Message,
+//            Chat,
+//            UsersChatsRoles
+//        )
+//    }
 }
+
 
 private fun setUpLiquibase(dataSource: HikariDataSource)
 {

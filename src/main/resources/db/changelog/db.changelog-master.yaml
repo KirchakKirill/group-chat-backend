@@ -6,3 +6,31 @@ databaseChangeLog:
         - sqlFile:
             path: changeSets/01_create_user_table.sql
             relativeToChangelogFile: true
+
+  - changeSet:
+      id: 02_create_chat_table
+      author: Kirchak
+      changes:
+        - sqlFile:
+            path: changeSets/02_create_chat_table.sql
+            relativeToChangelogFile: true
+
+
+  - changeSet:
+      id: 03_create_message_table
+      author: Kirchak
+      changes:
+        - sqlFile:
+            path: changeSets/03_create_message_table.sql
+            relativeToChangelogFile: true
+
+  - changeSet:
+      id: 04_create_users_chats_roles_table
+      author: Kirchak
+      changes:
+        - sqlFile:
+            path: changeSets/04_create_users_chats_roles_table.sql
+            relativeToChangelogFile: true
+
+
+
